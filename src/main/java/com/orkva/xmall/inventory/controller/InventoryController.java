@@ -24,12 +24,17 @@ public class InventoryController {
     @Autowired
     private SkuInventoryRepository skuInventoryRepository;
 
-    @GetMapping("/inventory/batches")
+    @GetMapping("/inventories/batches")
     public List<BatchesInventory> listBatchesInventories() {
         return batchesInventoryRepository.findAll();
     }
 
-    @GetMapping("/inventory/sku")
+    @GetMapping("/inventories/batches/available")
+    public List<BatchesInventory> listAvailableBatchesInventories() {
+        return batchesInventoryRepository.findAvailableBySkuId(1L);
+    }
+
+    @GetMapping("/inventories/sku")
     public List<SkuInventory> listSkuInventories() {
         return skuInventoryRepository.findAll();
     }

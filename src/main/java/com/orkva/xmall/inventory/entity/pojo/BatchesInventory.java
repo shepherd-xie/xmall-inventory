@@ -17,7 +17,7 @@ import java.time.Instant;
 public class BatchesInventory {
     @Column(unique = true)
     private String lotNumber;
-    private Integer skuId;
+    private Long skuId;
     private Integer total;
     private Integer remaining;
     private Integer outbound;
