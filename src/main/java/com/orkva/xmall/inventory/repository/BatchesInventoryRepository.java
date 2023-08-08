@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * BatchesInventoryRepository
@@ -16,5 +17,7 @@ public interface BatchesInventoryRepository extends JpaRepository<BatchesInvento
 
     @Query("select bi from BatchesInventory bi where bi.skuId = :skuId and bi.available <> 0")
     List<BatchesInventory> findAvailableBySkuId(Long skuId);
+
+    Optional<BatchesInventory> findByLotNumber(String lotNumber);
 
 }

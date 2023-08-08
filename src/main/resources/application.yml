@@ -22,3 +22,7 @@ spring:
       write-enums-using-to-string: true
 server:
   port: 8080
+
+snowflake:
+  worker-id: 0
+  datacenter-id: 0

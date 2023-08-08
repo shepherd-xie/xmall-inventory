@@ -1,6 +1,5 @@
 package com.orkva.xmall.inventory.entity.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.orkva.xmall.inventory.entity.enums.InventoryType;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -18,7 +17,7 @@ import java.time.Instant;
 @Table(name = "tb_batches_inventories_change_logs")
 public class BatchesInventoryChangeLog {
     private String lotNumber;
-    private Integer skuId;
+    private Long skuId;
     @Enumerated(EnumType.STRING)
     private InventoryType inventoryType;
     private Integer total;

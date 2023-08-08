@@ -1,12 +1,13 @@
 package com.orkva.xmall.inventory.controller;
 
-import com.orkva.xmall.inventory.entity.enums.InventoryType;
+import com.orkva.xmall.inventory.common.JsonResult;
 import com.orkva.xmall.inventory.entity.pojo.BatchesInventory;
 import com.orkva.xmall.inventory.entity.pojo.BatchesInventoryChangeLog;
 import com.orkva.xmall.inventory.entity.pojo.SkuInventory;
 import com.orkva.xmall.inventory.repository.BatchesInventoryChangeLogRepository;
 import com.orkva.xmall.inventory.repository.BatchesInventoryRepository;
 import com.orkva.xmall.inventory.repository.SkuInventoryRepository;
+import com.orkva.xmall.inventory.service.BatchesInventoriesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -33,6 +34,8 @@ public class InventoryController {
     private SkuInventoryRepository skuInventoryRepository;
     @Autowired
     private BatchesInventoryChangeLogRepository batchesInventoryChangeLogRepository;
+    @Autowired
+    private BatchesInventoriesService batchesInventoriesService;
 
     @GetMapping("/inventories/batches")
     public List<BatchesInventory> listBatchesInventories() {
@@ -52,6 +55,10 @@ public class InventoryController {
     @GetMapping("/inventories/sku")
     public List<SkuInventory> listSkuInventories() {
         return skuInventoryRepository.findAll();
+    }
+
+    public JsonResult<Object> purchase() {
+        return JsonResult.ok();
     }
 
 }

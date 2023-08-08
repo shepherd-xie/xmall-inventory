@@ -33,7 +33,7 @@ DROP TABLE IF EXISTS `tb_batches_inventories_change_logs`;
 CREATE TABLE `tb_batches_inventories_change_logs`
 (
     `id`                BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    `lot_Number`        VARCHAR(255)                        NOT NULL,
+    `lot_number`        VARCHAR(255)                        NOT NULL,
     `sku_id`            BIGINT UNSIGNED                     NOT NULL,
     `inventory_type`    VARCHAR(255)                        NOT NULL,
     `total`             INT       DEFAULT 0                 NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE `tb_batches_inventories_change_logs`
     `locked_changes`    INT       DEFAULT 0                 NOT NULL,
     `created_date`      TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     `updated_date`      TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP,
-    INDEX `idx_lot_number` (`lot_Number`)
+    INDEX `idx_lot_number` (`lot_number`)
 ) ENGINE = InnoDB
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci;
