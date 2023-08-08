@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface BatchesInventoryRepository extends JpaRepository<BatchesInventory, Long> {
 
-    @Query("select bi from BatchesInventory bi where bi.skuId = ?1 and bi.available <> 0")
+    @Query("select bi from BatchesInventory bi where bi.skuId = :skuId and bi.available <> 0")
     List<BatchesInventory> findAvailableBySkuId(Long skuId);
 
 }

@@ -1,0 +1,19 @@
+###
+GET http://localhost:8080/inventories/sku
+Accept: application/json
+
+###
+GET http://localhost:8080/inventories/batches/available?skuId=1
+Accept: application/json
+
+###
+GET http://localhost:8080/inventories/batches/changes
+Content-Type: application/json
+Accept: application/json
+
+{
+  "inventoryType": "PURCHASE"
+}
+
+###
+GET http://localhost:8080/inventories/batches

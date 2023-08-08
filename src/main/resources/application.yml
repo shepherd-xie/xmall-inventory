@@ -19,5 +19,6 @@ spring:
     default-property-inclusion: non_absent
     serialization:
       write-dates-as-timestamps: true
+      write-enums-using-to-string: true
 server:
   port: 8080
