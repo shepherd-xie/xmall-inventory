@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+
 /**
  * BatchesInventoriesChangesLogService
  *
@@ -30,10 +32,17 @@ public class BatchesInventoriesChangesLogService {
         batchesInventoryChangeLog.setSkuId(changedBatchesInventory.getSkuId());
         batchesInventoryChangeLog.setInventoryType(inventoryType);
         batchesInventoryChangeLog.setTotal(changedBatchesInventory.getTotal());
+        batchesInventoryChangeLog.setTotalChanges(0);
         batchesInventoryChangeLog.setRemaining(changedBatchesInventory.getRemaining());
+        batchesInventoryChangeLog.setRemainingChanges(0);
         batchesInventoryChangeLog.setOutbound(changedBatchesInventory.getOutbound());
+        batchesInventoryChangeLog.setOutboundChanges(0);
         batchesInventoryChangeLog.setAvailable(changedBatchesInventory.getAvailable());
+        batchesInventoryChangeLog.setAvailableChanges(0);
         batchesInventoryChangeLog.setLocked(changedBatchesInventory.getLocked());
+        batchesInventoryChangeLog.setLockedChanges(0);
+        batchesInventoryChangeLog.setCreatedDate(Instant.now());
+        batchesInventoryChangeLog.setUpdatedDate(Instant.now());
 
         switch (inventoryType) {
             case LOCKED -> {

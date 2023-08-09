@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+
 /**
  * BatchesInventoriesService
  *
@@ -29,6 +31,13 @@ public class BatchesInventoriesService {
         BatchesInventory batchesInventory = new BatchesInventory();
         batchesInventory.setSkuId(skuId);
         batchesInventory.setLotNumber(Long.toString(snowflakeIdWorker.nextId()));
+        batchesInventory.setTotal(0);
+        batchesInventory.setRemaining(0);
+        batchesInventory.setAvailable(0);
+        batchesInventory.setOutbound(0);
+        batchesInventory.setLocked(0);
+        batchesInventory.setCreatedDate(Instant.now());
+        batchesInventory.setUpdatedDate(Instant.now());
         batchesInventoryRepository.saveAndFlush(batchesInventory);
 
         batchesInventoriesChangesLogService.logInventoriesChanges(batchesInventory, 0, InventoryType.INIT);
@@ -36,7 +45,7 @@ public class BatchesInventoriesService {
         return batchesInventory;
     }
 
-    public void purchase(Long skuId, int change) {
+    public BatchesInventory purchase(Long skuId, int change) {
         BatchesInventory batchesInventory = createBatchesInventory(skuId);
         batchesInventory.setTotal(change);
         batchesInventory.setRemaining(change);
@@ -44,6 +53,7 @@ public class BatchesInventoriesService {
         batchesInventoryRepository.saveAndFlush(batchesInventory);
 
         batchesInventoriesChangesLogService.logInventoriesChanges(batchesInventory, change, InventoryType.PURCHASE);
+        return batchesInventory;
     }
 
     public void locked(String lotNumber, int change) {

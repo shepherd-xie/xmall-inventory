@@ -1,3 +1,4 @@
+debug: true
 spring:
   application:
     name: xmall-inventory
@@ -17,9 +18,9 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
   jackson:
     default-property-inclusion: non_absent
-    serialization:
-      write-dates-as-timestamps: true
-      write-enums-using-to-string: true
+springdoc:
+  show-actuator: true
+
 server:
   port: 8080
 

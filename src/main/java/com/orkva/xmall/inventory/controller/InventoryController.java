@@ -1,6 +1,7 @@
 package com.orkva.xmall.inventory.controller;
 
 import com.orkva.xmall.inventory.common.JsonResult;
+import com.orkva.xmall.inventory.controller.records.InventoryPurchaseParamsRecord;
 import com.orkva.xmall.inventory.entity.pojo.BatchesInventory;
 import com.orkva.xmall.inventory.entity.pojo.BatchesInventoryChangeLog;
 import com.orkva.xmall.inventory.entity.pojo.SkuInventory;
@@ -11,11 +12,9 @@ import com.orkva.xmall.inventory.service.BatchesInventoriesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -38,27 +37,29 @@ public class InventoryController {
     private BatchesInventoriesService batchesInventoriesService;
 
     @GetMapping("/inventories/batches")
-    public List<BatchesInventory> listBatchesInventories() {
-        return batchesInventoryRepository.findAll();
+    public JsonResult<List<BatchesInventory>> listBatchesInventories() {
+        return JsonResult.ok(batchesInventoryRepository.findAll());
     }
 
     @GetMapping("/inventories/batches/available")
-    public List<BatchesInventory> listAvailableBatchesInventoriesBySkuId(@RequestParam Long skuId) {
-        return batchesInventoryRepository.findAvailableBySkuId(skuId);
+    public JsonResult<List<BatchesInventory>> listAvailableBatchesInventoriesBySkuId(@RequestParam Long skuId) {
+        return JsonResult.ok(batchesInventoryRepository.findAvailableBySkuId(skuId));
     }
 
     @GetMapping("/inventories/batches/changes")
-    public List<BatchesInventoryChangeLog> listBatchesInventoryChangeLogs(@RequestBody BatchesInventoryChangeLog inventoryChangeLog) {
-        return batchesInventoryChangeLogRepository.findAll(Example.of(inventoryChangeLog));
+    public JsonResult<List<BatchesInventoryChangeLog>> listBatchesInventoryChangeLogs(@RequestBody BatchesInventoryChangeLog inventoryChangeLog) {
+        return JsonResult.ok(batchesInventoryChangeLogRepository.findAll(Example.of(inventoryChangeLog)));
     }
 
     @GetMapping("/inventories/sku")
-    public List<SkuInventory> listSkuInventories() {
-        return skuInventoryRepository.findAll();
+    public JsonResult<List<SkuInventory>> listSkuInventories() {
+        return JsonResult.ok(skuInventoryRepository.findAll());
     }
 
-    public JsonResult<Object> purchase() {
-        return JsonResult.ok();
+    @PostMapping(value = "/inventories/purchase")
+    public JsonResult<BatchesInventory> purchase(@RequestBody InventoryPurchaseParamsRecord paramsRecord) {
+        log.info("{}", paramsRecord);
+        return JsonResult.ok(batchesInventoriesService.purchase(paramsRecord.skuId(), paramsRecord.change()));
     }
 
 }
