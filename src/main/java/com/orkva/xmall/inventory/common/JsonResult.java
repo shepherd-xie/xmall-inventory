@@ -1,6 +1,5 @@
 package com.orkva.xmall.inventory.common;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -16,7 +15,6 @@ public record JsonResult<T>(boolean success, Status status, T payloads, String m
     @Getter
     @ToString
     @AllArgsConstructor
-    @JsonFormat(shape = JsonFormat.Shape.OBJECT)
     public enum Status {
         OK(200, "ok", "ok"),
         FAIL(400, "fail", "fail"),

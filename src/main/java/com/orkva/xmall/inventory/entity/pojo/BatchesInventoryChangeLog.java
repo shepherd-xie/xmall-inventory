@@ -3,6 +3,8 @@ package com.orkva.xmall.inventory.entity.pojo;
 import com.orkva.xmall.inventory.entity.enums.InventoryType;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 
 import java.time.Instant;
 
@@ -16,6 +18,10 @@ import java.time.Instant;
 @Data
 @Table(name = "tb_batches_inventories_change_logs")
 public class BatchesInventoryChangeLog {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String lotNumber;
     private Long skuId;
     @Enumerated(EnumType.STRING)
@@ -31,9 +37,8 @@ public class BatchesInventoryChangeLog {
     private Integer locked;
     private Integer lockedChanges;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Generated
     private Instant createdDate;
+    @Generated(event = {EventType.INSERT, EventType.UPDATE})
     private Instant updatedDate;
 }

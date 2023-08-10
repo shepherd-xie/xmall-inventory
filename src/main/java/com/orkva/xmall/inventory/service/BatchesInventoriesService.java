@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-
 /**
  * BatchesInventoriesService
  *
@@ -27,7 +25,7 @@ public class BatchesInventoriesService {
     @Autowired
     private SnowflakeIdWorker snowflakeIdWorker;
 
-    public BatchesInventory createBatchesInventory(Long skuId) {
+    public BatchesInventory initializeBatchesInventory(Long skuId) {
         BatchesInventory batchesInventory = new BatchesInventory();
         batchesInventory.setSkuId(skuId);
         batchesInventory.setLotNumber(Long.toString(snowflakeIdWorker.nextId()));
@@ -36,8 +34,6 @@ public class BatchesInventoriesService {
         batchesInventory.setAvailable(0);
         batchesInventory.setOutbound(0);
         batchesInventory.setLocked(0);
-        batchesInventory.setCreatedDate(Instant.now());
-        batchesInventory.setUpdatedDate(Instant.now());
         batchesInventoryRepository.saveAndFlush(batchesInventory);
 
         batchesInventoriesChangesLogService.logInventoriesChanges(batchesInventory, 0, InventoryType.INIT);
@@ -46,7 +42,7 @@ public class BatchesInventoriesService {
     }
 
     public BatchesInventory purchase(Long skuId, int change) {
-        BatchesInventory batchesInventory = createBatchesInventory(skuId);
+        BatchesInventory batchesInventory = initializeBatchesInventory(skuId);
         batchesInventory.setTotal(change);
         batchesInventory.setRemaining(change);
         batchesInventory.setAvailable(change);
@@ -56,16 +52,17 @@ public class BatchesInventoriesService {
         return batchesInventory;
     }
 
-    public void locked(String lotNumber, int change) {
+    public BatchesInventory locked(String lotNumber, int change) {
         BatchesInventory batchesInventory = batchesInventoryRepository.findByLotNumber(lotNumber).orElseThrow();
         batchesInventory.setLocked(batchesInventory.getLocked() + change);
         batchesInventory.setAvailable(batchesInventory.getAvailable() - change);
         batchesInventoryRepository.saveAndFlush(batchesInventory);
 
         batchesInventoriesChangesLogService.logInventoriesChanges(batchesInventory, change, InventoryType.LOCKED);
+        return batchesInventory;
     }
 
-    public void pickup(String lotNumber, int change) {
+    public BatchesInventory pickup(String lotNumber, int change) {
         BatchesInventory batchesInventory = batchesInventoryRepository.findByLotNumber(lotNumber).orElseThrow();
         batchesInventory.setLocked(batchesInventory.getLocked() - change);
         batchesInventory.setOutbound(batchesInventory.getOutbound() + change);
@@ -73,9 +70,10 @@ public class BatchesInventoriesService {
         batchesInventoryRepository.saveAndFlush(batchesInventory);
 
         batchesInventoriesChangesLogService.logInventoriesChanges(batchesInventory, change, InventoryType.PICKUP);
+        return batchesInventory;
     }
 
-    public void recede(String lotNumber, int change) {
+    public BatchesInventory recede(String lotNumber, int change) {
         BatchesInventory batchesInventory = batchesInventoryRepository.findByLotNumber(lotNumber).orElseThrow();
         batchesInventory.setAvailable(batchesInventory.getAvailable() + change);
         batchesInventory.setRemaining(batchesInventory.getRemaining() + change);
@@ -83,6 +81,7 @@ public class BatchesInventoriesService {
         batchesInventoryRepository.saveAndFlush(batchesInventory);
 
         batchesInventoriesChangesLogService.logInventoriesChanges(batchesInventory, change, InventoryType.RECEDE);
+        return batchesInventory;
     }
 
 }

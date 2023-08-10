@@ -2,6 +2,8 @@ package com.orkva.xmall.inventory.entity.pojo;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 
 import java.time.Instant;
 
@@ -15,6 +17,10 @@ import java.time.Instant;
 @Data
 @Table(name = "tb_batches_inventories")
 public class BatchesInventory {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(unique = true)
     private String lotNumber;
     private Long skuId;
@@ -24,9 +30,8 @@ public class BatchesInventory {
     private Integer available;
     private Integer locked;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Generated
     private Instant createdDate;
+    @Generated(event = {EventType.INSERT, EventType.UPDATE})
     private Instant updatedDate;
 }

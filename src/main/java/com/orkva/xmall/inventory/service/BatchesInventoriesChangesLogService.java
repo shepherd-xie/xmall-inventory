@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-
 /**
  * BatchesInventoriesChangesLogService
  *
@@ -41,8 +39,6 @@ public class BatchesInventoriesChangesLogService {
         batchesInventoryChangeLog.setAvailableChanges(0);
         batchesInventoryChangeLog.setLocked(changedBatchesInventory.getLocked());
         batchesInventoryChangeLog.setLockedChanges(0);
-        batchesInventoryChangeLog.setCreatedDate(Instant.now());
-        batchesInventoryChangeLog.setUpdatedDate(Instant.now());
 
         switch (inventoryType) {
             case LOCKED -> {

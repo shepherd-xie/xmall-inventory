@@ -1,5 +1,3 @@
-CREATE DATABASE xmall_inventory CHARSET utf8mb4 COLLATE utf8mb4_general_ci;
-
 DROP TABLE IF EXISTS `tb_batches_inventories`;
 CREATE TABLE `tb_batches_inventories`
 (

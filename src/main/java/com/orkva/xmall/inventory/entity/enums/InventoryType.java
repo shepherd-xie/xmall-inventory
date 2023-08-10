@@ -1,6 +1,5 @@
 package com.orkva.xmall.inventory.entity.enums;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -14,7 +13,6 @@ import lombok.ToString;
 @Getter
 @ToString
 @AllArgsConstructor
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum InventoryType {
     INIT(0, "初始化", "init", null),
 

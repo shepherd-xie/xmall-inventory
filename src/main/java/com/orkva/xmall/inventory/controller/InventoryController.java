@@ -1,6 +1,7 @@
 package com.orkva.xmall.inventory.controller;
 
 import com.orkva.xmall.inventory.common.JsonResult;
+import com.orkva.xmall.inventory.controller.records.InventoryChangeParamsRecord;
 import com.orkva.xmall.inventory.controller.records.InventoryPurchaseParamsRecord;
 import com.orkva.xmall.inventory.entity.pojo.BatchesInventory;
 import com.orkva.xmall.inventory.entity.pojo.BatchesInventoryChangeLog;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -60,6 +60,24 @@ public class InventoryController {
     public JsonResult<BatchesInventory> purchase(@RequestBody InventoryPurchaseParamsRecord paramsRecord) {
         log.info("{}", paramsRecord);
         return JsonResult.ok(batchesInventoriesService.purchase(paramsRecord.skuId(), paramsRecord.change()));
+    }
+
+    @PostMapping(value = "/inventories/locked")
+    public JsonResult<BatchesInventory> locked(@RequestBody InventoryChangeParamsRecord paramsRecord) {
+        log.info("{}", paramsRecord);
+        return JsonResult.ok(batchesInventoriesService.locked(paramsRecord.lotNumber(), paramsRecord.change()));
+    }
+
+    @PostMapping(value = "/inventories/pickup")
+    public JsonResult<BatchesInventory> pickup(@RequestBody InventoryChangeParamsRecord paramsRecord) {
+        log.info("{}", paramsRecord);
+        return JsonResult.ok(batchesInventoriesService.pickup(paramsRecord.lotNumber(), paramsRecord.change()));
+    }
+
+    @PostMapping(value = "/inventories/recede")
+    public JsonResult<BatchesInventory> recede(@RequestBody InventoryChangeParamsRecord paramsRecord) {
+        log.info("{}", paramsRecord);
+        return JsonResult.ok(batchesInventoriesService.recede(paramsRecord.lotNumber(), paramsRecord.change()));
     }
 
 }
