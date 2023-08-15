@@ -1,9 +1,9 @@
 package com.orkva.xmall.inventory.service;
 
+import com.orkva.xmall.common.utils.SnowflakeIdWorker;
 import com.orkva.xmall.inventory.entity.enums.InventoryType;
 import com.orkva.xmall.inventory.entity.pojo.BatchesInventory;
 import com.orkva.xmall.inventory.repository.BatchesInventoryRepository;
-import com.orkva.xmall.inventory.utils.SnowflakeIdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

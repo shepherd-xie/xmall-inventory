@@ -1,6 +1,6 @@
 package com.orkva.xmall.inventory.controller;
 
-import com.orkva.xmall.inventory.common.JsonResult;
+import com.orkva.xmall.common.entity.JsonResult;
 import com.orkva.xmall.inventory.controller.records.InventoryChangeParamsRecord;
 import com.orkva.xmall.inventory.controller.records.InventoryPurchaseParamsRecord;
 import com.orkva.xmall.inventory.entity.pojo.BatchesInventory;
