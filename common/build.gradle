@@ -1,0 +1,10 @@
+plugins {
+    id 'org.springframework.boot'
+}
+
+dependencies {
+    implementation "com.orkva.xmall:xmall-common:${xmallCommonVersion}"
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+}

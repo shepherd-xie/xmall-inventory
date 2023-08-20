@@ -1,0 +1,15 @@
+
+plugins {
+    id 'org.springframework.boot'
+}
+
+dependencies {
+    implementation project(':model')
+    implementation "com.orkva.xmall:xmall-common:${xmallCommonVersion}"
+
+    implementation 'org.springframework.data:spring-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+}
