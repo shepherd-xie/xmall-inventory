@@ -1,5 +1,12 @@
-plugins {
-    id 'org.springframework.boot'
+bootJar {
+    archiveFileName = 'xmall-inventory-web.jar'
+
+    doLast {
+        copy {
+            from file(archiveFile)
+            into "${rootDir}/bin"
+        }
+    }
 }
 
 dependencies {
