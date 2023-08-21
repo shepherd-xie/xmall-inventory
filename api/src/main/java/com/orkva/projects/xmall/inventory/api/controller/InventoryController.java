@@ -1,8 +1,11 @@
 package com.orkva.projects.xmall.inventory.api.controller;
 
+import com.orkva.projects.xmall.inventory.api.converter.InventoryConvertor;
 import com.orkva.projects.xmall.inventory.business.service.BatchesInventoriesService;
 import com.orkva.projects.xmall.inventory.contract.controller.InventoryContractController;
 import com.orkva.projects.xmall.inventory.contract.records.*;
+import com.orkva.projects.xmall.inventory.model.entity.pojo.BatchesInventory;
+import com.orkva.projects.xmall.inventory.model.entity.pojo.BatchesInventoryChangeLog;
 import com.orkva.projects.xmall.inventory.model.repository.BatchesInventoryChangeLogRepository;
 import com.orkva.projects.xmall.inventory.model.repository.BatchesInventoryRepository;
 import com.orkva.projects.xmall.inventory.model.repository.SkuInventoryRepository;
@@ -37,42 +40,50 @@ public class InventoryController implements InventoryContractController {
 
     @Override
     public JsonResult<List<BatchesInventoryRecord>> listBatchesInventories() {
-        return JsonResult.ok(batchesInventoryRepository.findAll());
+        return JsonResult.ok(InventoryConvertor.toBatchesInventoryRecords(batchesInventoryRepository.findAll()));
     }
 
     @Override
     public JsonResult<List<BatchesInventoryRecord>> listAvailableBatchesInventoriesBySkuId(@NotNull Long skuId) {
-        return JsonResult.ok(batchesInventoryRepository.findAvailableBySkuId(skuId));
+        return JsonResult.ok(InventoryConvertor.toBatchesInventoryRecords(batchesInventoryRepository.findAvailableBySkuId(skuId)));
     }
 
     @Override
-    public JsonResult<List<BatchesInventoryChangeLogRecord>> listBatchesInventoryChangeLogs(@RequestBody BatchesInventoryChangeLogRecord inventoryChangeLog) {
-        return JsonResult.ok(batchesInventoryChangeLogRepository.findAll(Example.of(inventoryChangeLog)));
+    public JsonResult<List<BatchesInventoryChangeLogRecord>> listBatchesInventoryChangeLogs(
+            @RequestBody BatchesInventoryChangeLogRecord batchesInventoryChangeLogRecord
+    ) {
+        List<BatchesInventoryChangeLog> batchesInventoryChangeLogs = batchesInventoryChangeLogRepository
+                .findAll(Example.of(InventoryConvertor.toBatchesInventoryChangeLog(batchesInventoryChangeLogRecord)));
+        return JsonResult.ok(InventoryConvertor.toBatchesInventoryChangeLogRecords(batchesInventoryChangeLogs));
     }
 
     @Override
     public JsonResult<List<SkuInventoryRecord>> listSkuInventories() {
-        return JsonResult.ok(skuInventoryRepository.findAll());
+        return JsonResult.ok(InventoryConvertor.toSkuInventoryRecords(skuInventoryRepository.findAll()));
     }
 
     @Override
     public JsonResult<BatchesInventoryRecord> purchase(@RequestBody InventoryPurchaseParamsRecord paramsRecord) {
-        return JsonResult.ok(batchesInventoriesService.purchase(paramsRecord.skuId(), paramsRecord.change()));
+        BatchesInventory batchesInventory = batchesInventoriesService.purchase(paramsRecord.skuId(), paramsRecord.change());
+        return JsonResult.ok(InventoryConvertor.toBatchesInventoryRecord(batchesInventory));
     }
 
     @Override
     public JsonResult<BatchesInventoryRecord> locked(@RequestBody InventoryChangeParamsRecord paramsRecord) {
-        return JsonResult.ok(batchesInventoriesService.locked(paramsRecord.lotNumber(), paramsRecord.change()));
+        BatchesInventory batchesInventory = batchesInventoriesService.locked(paramsRecord.lotNumber(), paramsRecord.change());
+        return JsonResult.ok(InventoryConvertor.toBatchesInventoryRecord(batchesInventory));
     }
 
     @Override
     public JsonResult<BatchesInventoryRecord> pickup(@RequestBody InventoryChangeParamsRecord paramsRecord) {
-        return JsonResult.ok(batchesInventoriesService.pickup(paramsRecord.lotNumber(), paramsRecord.change()));
+        BatchesInventory batchesInventory = batchesInventoriesService.pickup(paramsRecord.lotNumber(), paramsRecord.change());
+        return JsonResult.ok(InventoryConvertor.toBatchesInventoryRecord(batchesInventory));
     }
 
     @Override
     public JsonResult<BatchesInventoryRecord> recede(@RequestBody InventoryChangeParamsRecord paramsRecord) {
-        return JsonResult.ok(batchesInventoriesService.recede(paramsRecord.lotNumber(), paramsRecord.change()));
+        BatchesInventory batchesInventory = batchesInventoriesService.recede(paramsRecord.lotNumber(), paramsRecord.change());
+        return JsonResult.ok(InventoryConvertor.toBatchesInventoryRecord(batchesInventory));
     }
 
 }

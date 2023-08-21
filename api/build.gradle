@@ -11,6 +11,7 @@ bootJar {
 
 dependencies {
     implementation project(':model')
+    implementation project(':common')
     implementation project(':business')
     implementation project(':contract')
     implementation "com.orkva.xmall:xmall-common:${xmallCommonVersion}"

@@ -27,7 +27,9 @@ public interface InventoryContractController {
     JsonResult<List<BatchesInventoryRecord>> listAvailableBatchesInventoriesBySkuId(@NotNull Long skuId);
 
     @GetMapping(Routers.Inventory.LIST_BATCHES_INVENTORY_CHANGE_LOGS)
-    JsonResult<List<BatchesInventoryChangeLogRecord>> listBatchesInventoryChangeLogs(@RequestBody BatchesInventoryChangeLogRecord inventoryChangeLog);
+    JsonResult<List<BatchesInventoryChangeLogRecord>> listBatchesInventoryChangeLogs(
+            @RequestBody BatchesInventoryChangeLogRecord batchesInventoryChangeLogRecord
+    );
 
     @GetMapping(Routers.Inventory.LIST_SKU_INVENTORIES)
     JsonResult<List<SkuInventoryRecord>> listSkuInventories();

@@ -1,6 +1,6 @@
 package com.orkva.projects.xmall.inventory.business.service;
 
-import com.orkva.projects.xmall.inventory.model.entity.enums.InventoryType;
+import com.orkva.projects.xmall.inventory.common.enums.InventoryType;
 import com.orkva.projects.xmall.inventory.model.entity.pojo.BatchesInventory;
 import com.orkva.projects.xmall.inventory.model.entity.pojo.BatchesInventoryChangeLog;
 import com.orkva.projects.xmall.inventory.model.repository.BatchesInventoryChangeLogRepository;

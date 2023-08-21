@@ -1,5 +1,6 @@
 
 dependencies {
+    implementation project(':common')
     implementation project(':model')
     implementation "com.orkva.xmall:xmall-common:${xmallCommonVersion}"
 

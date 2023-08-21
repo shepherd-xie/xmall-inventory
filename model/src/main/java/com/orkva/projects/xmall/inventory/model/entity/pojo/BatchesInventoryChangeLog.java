@@ -1,6 +1,6 @@
 package com.orkva.projects.xmall.inventory.model.entity.pojo;
 
-import com.orkva.projects.xmall.inventory.model.entity.enums.InventoryType;
+import com.orkva.projects.xmall.inventory.common.enums.InventoryType;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Generated;
