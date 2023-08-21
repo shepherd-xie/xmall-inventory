@@ -1,4 +1,4 @@
-package com.orkva.projects.xmall.inventory.web.config;
+package com.orkva.projects.xmall.inventory.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

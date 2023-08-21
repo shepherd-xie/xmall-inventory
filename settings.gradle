@@ -1,3 +1,4 @@
 rootProject.name = 'xmall-inventory'
 
-include 'common', 'model', 'business', 'web'
+include 'common', 'model', 'business', 'api', 'contract'
+

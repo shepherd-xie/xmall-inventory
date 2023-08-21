@@ -1,8 +1,4 @@
 
-plugins {
-    id 'org.springframework.boot'
-}
-
 dependencies {
     implementation project(':model')
     implementation "com.orkva.xmall:xmall-common:${xmallCommonVersion}"
