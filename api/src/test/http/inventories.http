@@ -2,6 +2,10 @@
 GET http://localhost:8080/inventories/sku
 Accept: application/json
 
+### page sku inventory
+GET http://localhost:8080/inventories/batches/page?page=0&size=3&skuId=1
+Accept: application/json
+
 ### list abailable batches inventories by sku
 GET http://localhost:8080/inventories/batches/available?skuId=1
 Accept: application/json

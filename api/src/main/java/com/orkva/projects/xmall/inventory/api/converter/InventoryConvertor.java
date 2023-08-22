@@ -1,5 +1,6 @@
 package com.orkva.projects.xmall.inventory.api.converter;
 
+import com.orkva.projects.xmall.inventory.api.query.BatchesInventoriesQuery;
 import com.orkva.projects.xmall.inventory.contract.record.BatchesInventoryChangeLogRecord;
 import com.orkva.projects.xmall.inventory.contract.record.BatchesInventoryRecord;
 import com.orkva.projects.xmall.inventory.contract.record.SkuInventoryRecord;
@@ -7,6 +8,9 @@ import com.orkva.projects.xmall.inventory.model.entity.pojo.BatchesInventory;
 import com.orkva.projects.xmall.inventory.model.entity.pojo.BatchesInventoryChangeLog;
 import com.orkva.projects.xmall.inventory.model.entity.pojo.SkuInventory;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.Collection;
@@ -21,6 +25,14 @@ import java.util.stream.Collectors;
  */
 @Validated
 public class InventoryConvertor {
+
+    public static BatchesInventory toBatchesInventory(@NotNull BatchesInventoriesQuery batchesInventoriesQuery) {
+        BatchesInventory batchesInventory = new BatchesInventory();
+        batchesInventory.setId(batchesInventoriesQuery.id());
+        batchesInventory.setLotNumber(batchesInventoriesQuery.lotNumber());
+        batchesInventory.setSkuId(batchesInventoriesQuery.skuId());
+        return batchesInventory;
+    }
 
     public static BatchesInventoryRecord toBatchesInventoryRecord(@NotNull BatchesInventory batchesInventory) {
         return new BatchesInventoryRecord(
@@ -39,6 +51,13 @@ public class InventoryConvertor {
 
     public static List<BatchesInventoryRecord> toBatchesInventoryRecords(@NotNull Collection<BatchesInventory> batchesInventories) {
         return batchesInventories.stream().map(InventoryConvertor::toBatchesInventoryRecord).collect(Collectors.toList());
+    }
+    public static Page<BatchesInventoryRecord> toBatchesInventoryRecords(
+            @NotNull Page<BatchesInventory> batchesInventories,
+            @NotNull Pageable pageable
+    ) {
+        return batchesInventories.stream().map(InventoryConvertor::toBatchesInventoryRecord)
+                .collect(Collectors.collectingAndThen(Collectors.toList(), list -> new PageImpl<>(list, pageable, batchesInventories.getTotalElements())));
     }
 
     public static BatchesInventoryChangeLogRecord toBatchesInventoryChangeLogRecord(@NotNull BatchesInventoryChangeLog batchesInventoryChangeLog) {

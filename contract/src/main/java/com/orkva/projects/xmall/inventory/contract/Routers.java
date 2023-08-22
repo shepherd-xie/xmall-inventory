@@ -12,6 +12,8 @@ public interface Routers {
 
         String LIST_BATCHES_INVENTORIES = "/inventories/batches";
 
+        String PAGE_BATCHES_INVENTORIES = "/inventories/batches/page";
+
         String LIST_AVAILABLE_BATCHES_INVENTORIES = "/inventories/batches/available";
 
         String LIST_BATCHES_INVENTORY_CHANGE_LOGS = "/inventories/batches/changes";
@@ -20,11 +22,11 @@ public interface Routers {
 
         String PURCHASE = "/inventories/purchase";
 
-        String LOCKED = "/inventories/purchase";
+        String LOCKED = "/inventories/locked";
 
-        String PICKUP = "/inventories/purchase";
+        String PICKUP = "/inventories/pickup";
 
-        String RECEDE = "/inventories/purchase";
+        String RECEDE = "/inventories/recede";
 
     }
 
