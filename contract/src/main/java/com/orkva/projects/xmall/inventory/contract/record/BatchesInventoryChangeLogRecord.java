@@ -1,6 +1,6 @@
-package com.orkva.projects.xmall.inventory.contract.records;
+package com.orkva.projects.xmall.inventory.contract.record;
 
-import com.orkva.projects.xmall.inventory.common.enums.InventoryType;
+import com.orkva.projects.xmall.inventory.common.entity.InventoryType;
 
 import java.time.Instant;
 

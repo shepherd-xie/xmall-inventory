@@ -1,8 +1,8 @@
 package com.orkva.projects.xmall.inventory.api.converter;
 
-import com.orkva.projects.xmall.inventory.contract.records.BatchesInventoryChangeLogRecord;
-import com.orkva.projects.xmall.inventory.contract.records.BatchesInventoryRecord;
-import com.orkva.projects.xmall.inventory.contract.records.SkuInventoryRecord;
+import com.orkva.projects.xmall.inventory.contract.record.BatchesInventoryChangeLogRecord;
+import com.orkva.projects.xmall.inventory.contract.record.BatchesInventoryRecord;
+import com.orkva.projects.xmall.inventory.contract.record.SkuInventoryRecord;
 import com.orkva.projects.xmall.inventory.model.entity.pojo.BatchesInventory;
 import com.orkva.projects.xmall.inventory.model.entity.pojo.BatchesInventoryChangeLog;
 import com.orkva.projects.xmall.inventory.model.entity.pojo.SkuInventory;

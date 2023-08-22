@@ -1,7 +1,7 @@
 package com.orkva.projects.xmall.inventory.contract.controller;
 
 import com.orkva.projects.xmall.inventory.contract.Routers;
-import com.orkva.projects.xmall.inventory.contract.records.*;
+import com.orkva.projects.xmall.inventory.contract.record.*;
 import com.orkva.xmall.common.entity.JsonResult;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;

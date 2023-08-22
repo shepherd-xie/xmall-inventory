@@ -1,4 +1,4 @@
-package com.orkva.projects.xmall.inventory.common.enums;
+package com.orkva.projects.xmall.inventory.common.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

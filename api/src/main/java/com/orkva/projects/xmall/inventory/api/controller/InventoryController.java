@@ -3,7 +3,7 @@ package com.orkva.projects.xmall.inventory.api.controller;
 import com.orkva.projects.xmall.inventory.api.converter.InventoryConvertor;
 import com.orkva.projects.xmall.inventory.business.service.BatchesInventoriesService;
 import com.orkva.projects.xmall.inventory.contract.controller.InventoryContractController;
-import com.orkva.projects.xmall.inventory.contract.records.*;
+import com.orkva.projects.xmall.inventory.contract.record.*;
 import com.orkva.projects.xmall.inventory.model.entity.pojo.BatchesInventory;
 import com.orkva.projects.xmall.inventory.model.entity.pojo.BatchesInventoryChangeLog;
 import com.orkva.projects.xmall.inventory.model.repository.BatchesInventoryChangeLogRepository;

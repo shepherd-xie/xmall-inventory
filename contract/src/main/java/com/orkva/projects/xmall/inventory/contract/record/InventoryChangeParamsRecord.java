@@ -1,4 +1,4 @@
-package com.orkva.projects.xmall.inventory.contract.records;
+package com.orkva.projects.xmall.inventory.contract.record;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
