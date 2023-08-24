@@ -29,8 +29,8 @@ buildscript {
 }
 
 plugins {
-    id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
-    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version "${springDependencyManagementVersion}" apply false
+    id 'org.springframework.boot' version "${springBootVersion}" apply false
 }
 
 allprojects {
@@ -56,6 +56,8 @@ subprojects {
         plugin 'io.spring.dependency-management'
         plugin 'org.springframework.boot'
     }
+
+
 
     group = 'com.orkva.projects'
     version = "${baseVersion}"
