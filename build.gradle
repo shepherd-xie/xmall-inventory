@@ -1,7 +1,7 @@
 buildscript {
     ext {
         baseVersion = '0.0.1-SNAPSHOT'
-        javaVersion = '17'
+        projectJavaVersion = '17'
         projectGradleVersion = '8.3'
 
         springCloudVersion = '2022.0.4'
@@ -57,8 +57,6 @@ subprojects {
         plugin 'org.springframework.boot'
     }
 
-
-
     group = 'com.orkva.projects'
     version = "${baseVersion}"
 
@@ -68,9 +66,14 @@ subprojects {
         }
     }
 
+    compileJava {
+        sourceCompatibility = "${projectJavaVersion}"
+        targetCompatibility = "${projectJavaVersion}"
+    }
+
     java {
-        sourceCompatibility = "${javaVersion}"
-        targetCompatibility = "${javaVersion}"
+        sourceCompatibility = "${projectJavaVersion}"
+        targetCompatibility = "${projectJavaVersion}"
     }
 
     task wrapper(type: Wrapper) {
