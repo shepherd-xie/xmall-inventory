@@ -2,7 +2,7 @@ buildscript {
     ext {
         baseVersion = '0.0.1-SNAPSHOT'
         javaVersion = '17'
-        projectGradleVersion = '8.2.1'
+        projectGradleVersion = '8.3'
 
         springCloudVersion = '2022.0.4'
         springBootVersion = '3.1.2'
