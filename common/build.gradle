@@ -1,6 +1,6 @@
 
 dependencies {
-    implementation "com.orkva.xmall:xmall-common:${xmallCommonVersion}"
+    implementation "com.orkva.projects:xmall-common:${xmallCommonVersion}"
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

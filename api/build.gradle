@@ -14,7 +14,7 @@ dependencies {
     implementation project(':common')
     implementation project(':business')
     implementation project(':contract')
-    implementation "com.orkva.xmall:xmall-common:${xmallCommonVersion}"
+    implementation "com.orkva.projects:xmall-common:${xmallCommonVersion}"
 
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
