@@ -12,6 +12,7 @@ buildscript {
         lombokVersion = '1.18.26'
 
         xmallCommonVersion = '0.0.1-SNAPSHOT'
+        xmallAuthClientVersion = '0.0.1-SNAPSHOT'
     }
 
     repositories {
@@ -57,7 +58,7 @@ allprojects {
 
 subprojects {
     apply {
-        plugin 'java'
+        plugin 'java-library'
         plugin 'io.spring.dependency-management'
         plugin 'org.springframework.boot'
     }
