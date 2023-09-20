@@ -1,3 +1,7 @@
+apply {
+    plugin 'org.springframework.boot'
+}
+
 bootJar {
     archiveFileName = 'xmall-inventory-api.jar'
 
