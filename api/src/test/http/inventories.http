@@ -61,7 +61,3 @@ Accept: application/json
   "lotNumber": 1139233466680868864,
   "change": 30
 }
-
-### user
-GET http://localhost:8080/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ7XCJwYXNzd29yZFwiOm51bGwsXCJ1c2VybmFtZVwiOlwidXNlclwiLFwiYXV0aG9yaXRpZXNcIjpbe1wiYXV0aG9yaXR5XCI6XCJhZG1pblwifV0sXCJhY2NvdW50Tm9uRXhwaXJlZFwiOnRydWUsXCJhY2NvdW50Tm9uTG9ja2VkXCI6dHJ1ZSxcImNyZWRlbnRpYWxzTm9uRXhwaXJlZFwiOnRydWUsXCJlbmFibGVkXCI6dHJ1ZX0iLCJpYXQiOjE2OTUxMDk4ODEsImV4cCI6MTY5NTExNzA4MX0.kulOoDh5tkt1Rmsr0O1rr8hdRV_Hd4p93fnOApkZSog
