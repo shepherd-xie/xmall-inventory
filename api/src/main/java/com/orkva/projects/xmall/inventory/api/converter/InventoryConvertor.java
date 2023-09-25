@@ -1,6 +1,6 @@
 package com.orkva.projects.xmall.inventory.api.converter;
 
-import com.orkva.projects.xmall.inventory.api.query.BatchesInventoriesQuery;
+import com.orkva.projects.xmall.inventory.contract.record.BatchesInventoriesQuery;
 import com.orkva.projects.xmall.inventory.contract.record.BatchesInventoryChangeLogRecord;
 import com.orkva.projects.xmall.inventory.contract.record.BatchesInventoryRecord;
 import com.orkva.projects.xmall.inventory.contract.record.SkuInventoryRecord;
@@ -49,18 +49,25 @@ public class InventoryConvertor {
         );
     }
 
-    public static List<BatchesInventoryRecord> toBatchesInventoryRecords(@NotNull Collection<BatchesInventory> batchesInventories) {
-        return batchesInventories.stream().map(InventoryConvertor::toBatchesInventoryRecord).collect(Collectors.toList());
+    public static List<BatchesInventoryRecord>
+    toBatchesInventoryRecords(@NotNull Collection<BatchesInventory> batchesInventories) {
+        return batchesInventories.stream()
+                .map(InventoryConvertor::toBatchesInventoryRecord)
+                .collect(Collectors.toList());
     }
     public static Page<BatchesInventoryRecord> toBatchesInventoryRecords(
             @NotNull Page<BatchesInventory> batchesInventories,
             @NotNull Pageable pageable
     ) {
         return batchesInventories.stream().map(InventoryConvertor::toBatchesInventoryRecord)
-                .collect(Collectors.collectingAndThen(Collectors.toList(), list -> new PageImpl<>(list, pageable, batchesInventories.getTotalElements())));
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toList(),
+                        list -> new PageImpl<>(list, pageable, batchesInventories.getTotalElements())
+                ));
     }
 
-    public static BatchesInventoryChangeLogRecord toBatchesInventoryChangeLogRecord(@NotNull BatchesInventoryChangeLog batchesInventoryChangeLog) {
+    public static BatchesInventoryChangeLogRecord
+    toBatchesInventoryChangeLogRecord(@NotNull BatchesInventoryChangeLog batchesInventoryChangeLog) {
         return new BatchesInventoryChangeLogRecord(
                 batchesInventoryChangeLog.getId(),
                 batchesInventoryChangeLog.getLotNumber(),
@@ -81,8 +88,11 @@ public class InventoryConvertor {
         );
     }
 
-    public static List<BatchesInventoryChangeLogRecord> toBatchesInventoryChangeLogRecords(@NotNull Collection<BatchesInventoryChangeLog> batchesInventoryChangeLogs) {
-        return batchesInventoryChangeLogs.stream().map(InventoryConvertor::toBatchesInventoryChangeLogRecord).collect(Collectors.toList());
+    public static List<BatchesInventoryChangeLogRecord>
+    toBatchesInventoryChangeLogRecords(@NotNull Collection<BatchesInventoryChangeLog> batchesInventoryChangeLogs) {
+        return batchesInventoryChangeLogs.stream()
+                .map(InventoryConvertor::toBatchesInventoryChangeLogRecord)
+                .collect(Collectors.toList());
     }
 
     public static BatchesInventoryChangeLog toBatchesInventoryChangeLog(

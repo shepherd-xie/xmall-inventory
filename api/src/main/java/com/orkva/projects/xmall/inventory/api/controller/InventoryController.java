@@ -1,7 +1,6 @@
 package com.orkva.projects.xmall.inventory.api.controller;
 
 import com.orkva.projects.xmall.inventory.api.converter.InventoryConvertor;
-import com.orkva.projects.xmall.inventory.api.query.BatchesInventoriesQuery;
 import com.orkva.projects.xmall.inventory.business.service.BatchesInventoriesService;
 import com.orkva.projects.xmall.inventory.contract.Routers;
 import com.orkva.projects.xmall.inventory.contract.controller.InventoryContractController;
@@ -48,12 +47,16 @@ public class InventoryController implements InventoryContractController {
     /**
      * 获取批次库存列表
      *
+     * @param batchesInventoriesQuery 查询条件
      * @return JsonResult 包含批次库存记录的列表
      */
     @GetMapping(Routers.Inventory.LIST_BATCHES_INVENTORIES)
     @Override
-    public JsonResult<List<BatchesInventoryRecord>> listBatchesInventories() {
-        return JsonResult.ok(InventoryConvertor.toBatchesInventoryRecords(batchesInventoryRepository.findAll()));
+    public JsonResult<List<BatchesInventoryRecord>>
+    listBatchesInventories(BatchesInventoriesQuery batchesInventoriesQuery) {
+        List<BatchesInventory> inventoryList = batchesInventoryRepository
+                .findAll(Example.of(InventoryConvertor.toBatchesInventory(batchesInventoriesQuery)));
+        return JsonResult.ok(InventoryConvertor.toBatchesInventoryRecords(inventoryList));
     }
 
     /**
@@ -82,7 +85,9 @@ public class InventoryController implements InventoryContractController {
     @GetMapping(Routers.Inventory.LIST_AVAILABLE_BATCHES_INVENTORIES)
     @Override
     public JsonResult<List<BatchesInventoryRecord>> listAvailableBatchesInventoriesBySkuId(@NotNull Long skuId) {
-        return JsonResult.ok(InventoryConvertor.toBatchesInventoryRecords(batchesInventoryRepository.findAvailableBySkuId(skuId)));
+        return JsonResult.ok(
+                InventoryConvertor.toBatchesInventoryRecords(batchesInventoryRepository.findAvailableBySkuId(skuId))
+        );
     }
 
     /**
@@ -121,7 +126,8 @@ public class InventoryController implements InventoryContractController {
     @PostMapping(Routers.Inventory.PURCHASE)
     @Override
     public JsonResult<BatchesInventoryRecord> purchase(@RequestBody InventoryPurchaseParamsRecord paramsRecord) {
-        BatchesInventory batchesInventory = batchesInventoriesService.purchase(paramsRecord.skuId(), paramsRecord.change());
+        BatchesInventory batchesInventory =
+                batchesInventoriesService.purchase(paramsRecord.skuId(), paramsRecord.change());
         return JsonResult.ok(InventoryConvertor.toBatchesInventoryRecord(batchesInventory));
     }
 
@@ -134,7 +140,8 @@ public class InventoryController implements InventoryContractController {
     @PostMapping(Routers.Inventory.LOCKED)
     @Override
     public JsonResult<BatchesInventoryRecord> locked(@RequestBody InventoryChangeParamsRecord paramsRecord) {
-        BatchesInventory batchesInventory = batchesInventoriesService.locked(paramsRecord.lotNumber(), paramsRecord.change());
+        BatchesInventory batchesInventory =
+                batchesInventoriesService.locked(paramsRecord.lotNumber(), paramsRecord.change());
         return JsonResult.ok(InventoryConvertor.toBatchesInventoryRecord(batchesInventory));
     }
 
@@ -147,7 +154,8 @@ public class InventoryController implements InventoryContractController {
     @PostMapping(Routers.Inventory.PICKUP)
     @Override
     public JsonResult<BatchesInventoryRecord> pickup(@RequestBody InventoryChangeParamsRecord paramsRecord) {
-        BatchesInventory batchesInventory = batchesInventoriesService.pickup(paramsRecord.lotNumber(), paramsRecord.change());
+        BatchesInventory batchesInventory =
+                batchesInventoriesService.pickup(paramsRecord.lotNumber(), paramsRecord.change());
         return JsonResult.ok(InventoryConvertor.toBatchesInventoryRecord(batchesInventory));
     }
 
@@ -160,7 +168,8 @@ public class InventoryController implements InventoryContractController {
     @PostMapping(Routers.Inventory.RECEDE)
     @Override
     public JsonResult<BatchesInventoryRecord> recede(@RequestBody InventoryChangeParamsRecord paramsRecord) {
-        BatchesInventory batchesInventory = batchesInventoriesService.recede(paramsRecord.lotNumber(), paramsRecord.change());
+        BatchesInventory batchesInventory =
+                batchesInventoriesService.recede(paramsRecord.lotNumber(), paramsRecord.change());
         return JsonResult.ok(InventoryConvertor.toBatchesInventoryRecord(batchesInventory));
     }
 

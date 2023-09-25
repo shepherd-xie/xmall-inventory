@@ -21,13 +21,31 @@ public class BatchesInventory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * 批次号
+     */
     @Column(unique = true)
     private String lotNumber;
     private Long skuId;
+    /**
+     * 总量
+     */
     private Integer total;
+    /**
+     * 剩余量
+     */
     private Integer remaining;
+    /**
+     * 出库量
+     */
     private Integer outbound;
+    /**
+     * 可用量
+     */
     private Integer available;
+    /**
+     * 锁定量
+     */
     private Integer locked;
 
     @Generated

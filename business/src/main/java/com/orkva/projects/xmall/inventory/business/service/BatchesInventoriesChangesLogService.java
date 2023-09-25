@@ -5,6 +5,7 @@ import com.orkva.projects.xmall.inventory.model.entity.pojo.BatchesInventory;
 import com.orkva.projects.xmall.inventory.model.entity.pojo.BatchesInventoryChangeLog;
 import com.orkva.projects.xmall.inventory.model.repository.BatchesInventoryChangeLogRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,15 +31,15 @@ public class BatchesInventoriesChangesLogService {
         batchesInventoryChangeLog.setSkuId(changedBatchesInventory.getSkuId());
         batchesInventoryChangeLog.setInventoryType(inventoryType);
         batchesInventoryChangeLog.setTotal(changedBatchesInventory.getTotal());
-        batchesInventoryChangeLog.setTotalChanges(0);
+        batchesInventoryChangeLog.setTotalChanges(NumberUtils.INTEGER_ZERO);
         batchesInventoryChangeLog.setRemaining(changedBatchesInventory.getRemaining());
-        batchesInventoryChangeLog.setRemainingChanges(0);
+        batchesInventoryChangeLog.setRemainingChanges(NumberUtils.INTEGER_ZERO);
         batchesInventoryChangeLog.setOutbound(changedBatchesInventory.getOutbound());
-        batchesInventoryChangeLog.setOutboundChanges(0);
+        batchesInventoryChangeLog.setOutboundChanges(NumberUtils.INTEGER_ZERO);
         batchesInventoryChangeLog.setAvailable(changedBatchesInventory.getAvailable());
-        batchesInventoryChangeLog.setAvailableChanges(0);
+        batchesInventoryChangeLog.setAvailableChanges(NumberUtils.INTEGER_ZERO);
         batchesInventoryChangeLog.setLocked(changedBatchesInventory.getLocked());
-        batchesInventoryChangeLog.setLockedChanges(0);
+        batchesInventoryChangeLog.setLockedChanges(NumberUtils.INTEGER_ZERO);
 
         switch (inventoryType) {
             case LOCKED -> {

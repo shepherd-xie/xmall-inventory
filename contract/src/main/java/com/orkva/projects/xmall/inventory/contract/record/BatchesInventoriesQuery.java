@@ -1,4 +1,4 @@
-package com.orkva.projects.xmall.inventory.api.query;
+package com.orkva.projects.xmall.inventory.contract.record;
 
 /**
  * BatchesInventoriesQuery

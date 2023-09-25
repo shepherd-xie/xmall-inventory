@@ -1,12 +1,16 @@
 package com.orkva.projects.xmall.inventory.business.service;
 
+import com.orkva.projects.xmall.inventory.business.exception.BusinessException;
 import com.orkva.projects.xmall.inventory.common.entity.InventoryType;
 import com.orkva.projects.xmall.inventory.model.entity.pojo.BatchesInventory;
 import com.orkva.projects.xmall.inventory.model.repository.BatchesInventoryRepository;
 import com.orkva.xmall.common.utils.SnowflakeIdWorker;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.function.Predicate;
 
 /**
  * BatchesInventoriesService
@@ -29,14 +33,15 @@ public class BatchesInventoriesService {
         BatchesInventory batchesInventory = new BatchesInventory();
         batchesInventory.setSkuId(skuId);
         batchesInventory.setLotNumber(Long.toString(snowflakeIdWorker.nextId()));
-        batchesInventory.setTotal(0);
-        batchesInventory.setRemaining(0);
-        batchesInventory.setAvailable(0);
-        batchesInventory.setOutbound(0);
-        batchesInventory.setLocked(0);
+        batchesInventory.setTotal(NumberUtils.INTEGER_ZERO);
+        batchesInventory.setRemaining(NumberUtils.INTEGER_ZERO);
+        batchesInventory.setAvailable(NumberUtils.INTEGER_ZERO);
+        batchesInventory.setOutbound(NumberUtils.INTEGER_ZERO);
+        batchesInventory.setLocked(NumberUtils.INTEGER_ZERO);
         batchesInventoryRepository.saveAndFlush(batchesInventory);
 
-        batchesInventoriesChangesLogService.logInventoriesChanges(batchesInventory, 0, InventoryType.INIT);
+        batchesInventoriesChangesLogService
+                .logInventoriesChanges(batchesInventory, NumberUtils.INTEGER_ZERO, InventoryType.INIT);
 
         return batchesInventory;
     }
@@ -56,6 +61,7 @@ public class BatchesInventoriesService {
         BatchesInventory batchesInventory = batchesInventoryRepository.findByLotNumber(lotNumber).orElseThrow();
         batchesInventory.setLocked(batchesInventory.getLocked() + change);
         batchesInventory.setAvailable(batchesInventory.getAvailable() - change);
+        checkInventory(batchesInventory);
         batchesInventoryRepository.saveAndFlush(batchesInventory);
 
         batchesInventoriesChangesLogService.logInventoriesChanges(batchesInventory, change, InventoryType.LOCKED);
@@ -67,6 +73,7 @@ public class BatchesInventoriesService {
         batchesInventory.setLocked(batchesInventory.getLocked() - change);
         batchesInventory.setOutbound(batchesInventory.getOutbound() + change);
         batchesInventory.setRemaining(batchesInventory.getRemaining() - change);
+        checkInventory(batchesInventory);
         batchesInventoryRepository.saveAndFlush(batchesInventory);
 
         batchesInventoriesChangesLogService.logInventoriesChanges(batchesInventory, change, InventoryType.PICKUP);
@@ -78,10 +85,36 @@ public class BatchesInventoriesService {
         batchesInventory.setAvailable(batchesInventory.getAvailable() + change);
         batchesInventory.setRemaining(batchesInventory.getRemaining() + change);
         batchesInventory.setOutbound(batchesInventory.getOutbound() - change);
+        checkInventory(batchesInventory);
         batchesInventoryRepository.saveAndFlush(batchesInventory);
 
         batchesInventoriesChangesLogService.logInventoriesChanges(batchesInventory, change, InventoryType.RECEDE);
         return batchesInventory;
+    }
+
+    private Predicate<BatchesInventory> availablePredicate = i ->
+            i.getAvailable() >= NumberUtils.INTEGER_ZERO && i.getAvailable() <= i.getTotal();
+    private Predicate<BatchesInventory> remainingPredicate = i ->
+            i.getRemaining() >= NumberUtils.INTEGER_ZERO && i.getRemaining() <= i.getTotal();
+    private Predicate<BatchesInventory> outboundPredicate = i ->
+            i.getOutbound() >= NumberUtils.INTEGER_ZERO && i.getOutbound() <= i.getTotal();
+    private Predicate<BatchesInventory> lockedPredicate = i ->
+            i.getLocked() >= NumberUtils.INTEGER_ZERO && i.getLocked() <= i.getTotal();
+
+    private void checkInventory(BatchesInventory batchesInventory) {
+        // TODO: 2023/9/25
+        if (!availablePredicate.test(batchesInventory)) {
+            throw new BusinessException();
+        }
+        if (!remainingPredicate.test(batchesInventory)) {
+            throw new BusinessException();
+        }
+        if (!outboundPredicate.test(batchesInventory)) {
+            throw new BusinessException();
+        }
+        if (!lockedPredicate.test(batchesInventory)) {
+            throw new BusinessException();
+        }
     }
 
 }
